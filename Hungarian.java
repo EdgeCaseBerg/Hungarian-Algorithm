@@ -236,8 +236,8 @@ public class Hungarian {
 	 * @param matrix The target 2D array
 	 * */
 	public void printMatrix(int[][] matrix){
-		for(int row=0; row<values.length;row++){
-			for(int col=0; col<values.length;col++){
+		for(int row=0; row<matrix.length;row++){
+			for(int col=0; col<matrix.length;col++){
 				System.out.print(matrix[row][col]+"\t");
 			}
 			System.out.println();
