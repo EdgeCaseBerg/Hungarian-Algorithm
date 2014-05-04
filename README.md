@@ -1,5 +1,9 @@
 ### Hungarian Algorithm:
 
+**Algorithm steps:**<br/>
+[Wikipedia](http://en.wikipedia.org/wiki/Hungarian_algorithm)<br/>
+[Hungarian Algorithm](http://www.hungarianalgorithm.com/examplehungarianalgorithm.php)
+
 **Given Input:**
 <br/>
 ```
