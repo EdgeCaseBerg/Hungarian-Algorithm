@@ -15,8 +15,8 @@ public class HungarianDouble {
 	
 	public HungarianDouble(double[][] matrix) {
 		// Initialization
-		originalValues = matrix; // Given matrix
-		values = cloneMatrix(matrix); // Cloned matrix to be processed
+		originalValues = convertToSquareMatrix(matrix); // Given matrix
+		values = cloneMatrix(originalValues); // Cloned matrix to be processed
 		rows = new int[values.length];
 		occupiedCols = new int[values.length];
 		
@@ -219,11 +219,53 @@ public class HungarianDouble {
 		return total;
 	}
 
+	public static double[][] convertToSquareMatrix(double[][] matrix){
+		if(matrix.length == matrix[0].length){
+			return matrix;
+		}
+		/* We are of course assuming that the rows/columns are of uniform size besides row != col length */
+		int max = Math.max(matrix.length, matrix[0].length);
+		double[][] tmp = new double[max][max];
+		//Conventionally, each element in the dummy row/column is the same as the largest number in the matrix.
+		double largest = 0.0;
+		for(int i = 0; i < matrix.length; i++){
+			for(int j = 0; j < matrix[0].length; j++){
+				if(largest < matrix[i][j]){
+					largest = matrix[i][j];
+				}
+				tmp[i][j] = matrix[i][j];
+			}
+		}
+
+		//set largest number in the dummy row/cols
+		//Did we add a column?
+		int dummiesAdded = Math.abs(matrix.length - matrix[0].length);
+		if(matrix.length >  matrix[0].length){
+			for (int i=0; i < tmp.length; i++ ) {
+				for(int j = 0; j < tmp.length; j++){
+					if(j >= tmp.length - dummiesAdded){
+						tmp[i][j] = largest;
+					}
+				}
+			}
+		}else{
+			for (int i=0; i < tmp.length; i++ ) {
+				if(i >= tmp.length - dummiesAdded){
+					for(int j = 0; j < tmp.length; j++){
+						tmp[i][j] = largest;
+					}
+				}
+			}
+		}
+
+		return tmp;
+	}
+
 	/**
 	 * Clone the 2D array
 	 * @return A copy of the 2D array
 	 * */
-	public double[][] cloneMatrix(double[][] matrix){
+	private double[][] cloneMatrix(double[][] matrix){	
 		double[][] tmp = new double[matrix.length][matrix.length];
 		for(int row = 0; row < matrix.length; row++){
 			tmp[row] = matrix[row].clone();
@@ -235,7 +277,7 @@ public class HungarianDouble {
 	 * Print a 2D array
 	 * @param matrix The target 2D array
 	 * */
-	public void printMatrix(double[][] matrix){
+	public static void printMatrix(double[][] matrix){
 		for(int row=0; row<matrix.length;row++){
 			for(int col=0; col<matrix.length;col++){
 				System.out.print(matrix[row][col]+"\t");

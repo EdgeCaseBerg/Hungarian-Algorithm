@@ -35,18 +35,20 @@ public class DemoApplicationDouble{
 		{ 42, 35, 33, 23, 3, 8, 8, 50, 23, 95 },
 		{ 74, 37, 15, 21, 36, 49, 80, 55, 79, 53 },
 		{ 21, 97, 55, 12, 25, 67, 10, 65, 2, 49 },
-		{ 8, 48, 1, 92, 8, 76, 41, 32, 87, 36 },
-		{ 32, 73, 71, 47, 94, 92, 16, 97, 5, 4 },
-		{ 58, 37, 54, 52, 84, 16, 34, 5, 72, 26 } };
+		{ 8, 48, 1, 92, 8, 76, 41, 32, 87, 36 } };
+
+		double[][] squareMat = HungarianDouble.convertToSquareMatrix(values);
 		
 		long time = System.currentTimeMillis(); // Start time recording 
-		HungarianDouble hungarian = new HungarianDouble(values);
+		HungarianDouble hungarian = new HungarianDouble(squareMat);
+		HungarianDouble.printMatrix(squareMat);
 		System.out.println(String.format("Total time: %dms\n", System.currentTimeMillis() - time)); // Stop time recording and display time consumed
 		
 		// Display result on screen
 		int[] result = hungarian.getResult();
-		for(int i = 0; i < result.length; i++)
-			System.out.println(String.format("Row%d => Col%d (%f)", i+1, result[i]+1, values[i][result[i]])); // Rowi => Colj (value)
+		for(int i = 0; i < result.length; i++){
+			System.out.println(String.format("Row%d => Col%d (%f)", i+1, result[i]+1, squareMat[i][result[i]])); // Rowi => Colj (value)
+		}
 		
 		System.out.println(String.format("\nTotal: %f", hungarian.getTotal())); // Total
 	}
